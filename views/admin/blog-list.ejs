@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,54 +46,5 @@
         </tbody>
     </table>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('../partials/head.ejs', {title: "Blog List"}) %>
-</head>
-<body>
-    <!-- Navbar -->
-    <%- include('../partials/navbar') %>
 
-    <div class="container">
-        <% if (action && action === "create") { %>
-            <%- include('../partials/alert.ejs', {alertClass: "success", alertText: "Blog Created!"}) %>
-        <% } %>
-        
-        <% if (action && action === "update") { %>
-            <%- include('../partials/alert.ejs', {alertClass: "warning", alertText: "Blog Updated!"}) %>
-        <% } %>
-
-        <% if (action && action === "delete") { %>
-            <%- include('../partials/alert.ejs', {alertClass: "danger", alertText: "Blog Deleted!"}) %>
-        <% } %>
-    </div>
-        
-    <table class="table table-hover container mx-auto mt-3">
-        <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Image</th>
-              <th scope="col">Title</th>
-              <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% blogs.forEach(blog => { %>
-                <tr>
-                  <th scope="row">#<%= blog.blogid %></th>
-                  <td><img src="/img/<%= blog.img %>" width="150" class="img-fluid"></td>
-                  <td><%= blog.title %></td>
-                  <td>
-                    <a href="/admin/blogs/delete/<%= blog.blogid %>" class="btn btn-sm btn-danger">Delete Blog</a>
-                    <a href="/admin/blogs/<%= blog.blogid %>" class="btn btn-sm btn-outline-danger">Update Blog</a>
-                </td>
-                </tr>
-             
-            <% }) %>
-        </tbody>
-    </table>
-</body>
->>>>>>> e1cc4f6cb4e909b8fe7adc3034875226c04e20f2
 </html>
