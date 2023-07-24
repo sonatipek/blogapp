@@ -18,6 +18,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", 'ejs') // you can use any template engine
 app.use(express.urlencoded({extended: true}))
 
+const Blog = require('./models/blog');
+const Category = require('./models/category');
+
 // !Routes
 app.use('/admin', adminRoutes); //you can set a default startup path
 app.use(userRoutes);

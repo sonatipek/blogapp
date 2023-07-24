@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../data/db');
 
-const Blog = sequelize.define("blog", {
+const Blog = sequelize.define("blogs", {
     blogid: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -35,12 +35,14 @@ const Blog = sequelize.define("blog", {
     isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false
-    },
-    addedTime: {
-        type: DataTypes.DATETIME,
-        defaultValue: DataTypes.NOW
     }
-
 });
+
+async function syncSQL() {
+    await Blog.sync({force: true})
+    console.info("Blog table is added!")
+}
+
+syncSQL();
 
 module.exports=Blog;
