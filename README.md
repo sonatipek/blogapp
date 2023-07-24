@@ -7,6 +7,7 @@ bulunuyor. Geliştirmeye açıktır ve devam edecektir.
 - Express.js
 - Multer
 - MySQL
+- CKEditor
 
 ## 🚀 Bilgisayarınızda Çalıştırın
 1. Geliştirmeye yardım etmek veya kendi bilgisaayarınızda test etmek için kullanmanız için terminale ``npm i`` yazıp devam ettikten sonra aşağıdaki adımları uygulayınız:
@@ -28,6 +29,7 @@ The blog application I developed to put my Node.js and express.js learning into 
 - Express.js
 - Multer
 - MySQL
+- CKEditor
 
 ## 🚀 Run on Your Computer
 1. To use it to help with development or to test it on your own computer, type ``npm i`` in the terminal and follow the steps below:
