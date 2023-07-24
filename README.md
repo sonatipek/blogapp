@@ -1,4 +1,6 @@
 # TR
+Node.js ve express.js öğrenimimi pratiğe dökmek için geliştirdiğim blog uygulaması. Uygulama içerisinde admin panel, image upload ve HTML Editör gibi özellikler de 
+bulunuyor. Geliştirmeye açıktır ve devam edecektir. 
 ## 💻 Kullanılan Teknolojiler
 - Bootstrap
 - EJS
@@ -19,6 +21,7 @@ DB_NAME=".."
 4. ``npm start`` komutu ile projeyi çalıştırabilirsiniz. 
 
 # EN
+The blog application I developed to put my Node.js and express.js learning into practice. The application includes features such as admin panel, image upload and HTML Editor.is available. Development is open and will continue.
 ## 💻 Tech Stack
 - Bootstrap
 - EJS
