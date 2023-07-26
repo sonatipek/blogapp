@@ -1,7 +1,5 @@
-const mysql = require('mysql2');
-const config = require('./config');
-
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: "mysql",
