@@ -39,8 +39,32 @@ const Blog = sequelize.define("blogs", {
 });
 
 async function syncSQL() {
-    await Blog.sync({force: true})
+    await Blog.sync({alter: true})
     console.info("Blog table is added!")
+
+    const count = await Blog.count()
+    if (count === 0) {
+        Blog.create({
+            title: "Lorem",
+            summary: "Lorem ipsum",
+            description: "Lorem ipsum dolor sit amet",
+            image: "1.jpg",
+            categoryid: "1",
+            isShownOnPage: 1,
+            isActive: 1
+        })
+
+        Blog.create({
+            title: "Lorem 2",
+            summary: "Lorem ipsum 2",
+            description: "Lorem ipsum dolor sit amet 2",
+            image: "2.jpg",
+            categoryid: "2",
+            isShownOnPage: 1,
+            isActive: 1
+        })
+        
+    }
 }
 
 syncSQL();

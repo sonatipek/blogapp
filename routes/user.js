@@ -5,12 +5,21 @@ const db = require('../data/db');
 // Create Router
 const router = express.Router();
 
+// Create Models
+const Blog = require('../models/blog');
+const Category = require('../models/category');
+
 // Blogs by Category
 router.use('/blogs/category/:categoryid', async (req, res) => {
     try {
         const categoryid = req.params.categoryid;
-        const [blogs, ] = await db.execute("select * from blogs where category = ?", [categoryid]);
-        const [categories, ] = await db.execute('select * from category')
+        const blogs = await Blog.findAll({
+            raw: true,
+            where:{
+                categoryid: categoryid
+            }
+        });
+        const categories = await Category.findAll({raw: true});
         
         
 
@@ -23,8 +32,8 @@ router.use('/blogs/category/:categoryid', async (req, res) => {
 // Blog Detail
 router.use("/blogs/:blogid",async (req, res) => {
     try {
-        const [blogs, ] = await db.execute('select * from blogs');
-        const [categories, ] = await db.execute('select * from category')
+        const blogs = await Blog.findAll({raw: true});
+        const categories = await Category.findAll({raw: true});
      
         
         if (req.params.blogid > 0) {
@@ -42,8 +51,8 @@ router.use("/blogs/:blogid",async (req, res) => {
 router.use("/blogs", async (req, res) => {
 
     try {
-        const [blogs, ] = await db.execute('select * from blogs');
-        const [categories, ] = await db.execute('select * from category')
+        const blogs = await Blog.findAll({raw: true});
+        const categories = await Category.findAll({raw: true});
        
     
         res.render('pages/blog', {
@@ -60,8 +69,8 @@ router.use("/blogs", async (req, res) => {
 // Homepage
 router.use("/",async (req, res) => {
     try {
-        const [blogs, ] = await db.execute('select * from blogs');
-        const [categories, ] = await db.execute('select * from category')
+        const blogs = await Blog.findAll({raw: true});
+        const categories = await Category.findAll({raw: true});
         
         res.render('pages/index', {
             blogs:blogs,

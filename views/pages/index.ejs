@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-9">
                 <% blogs.forEach(blog => { %>
-                    <% if (blog.is_shown_homepage) { %>
+                    <% if (blog.isShownOnPage && blog.isActive) { %>
                         <%- include('../partials/cards', {blog}) %>
                     <% } %>
 

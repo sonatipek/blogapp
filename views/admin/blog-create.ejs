@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head.ejs', {title: "Blog Edit"}) %>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('../partials/navbar') %>
+
+    <div class="row container mx-auto mt-5 border border-muted p-5 rounded">
+        <div class="col-12">
+            <form method="post">
+                <h1 class="text-center mb-5 h2">Blog Update Form</h1>
+
+                <div class="row mb-3">
+                  <label for="title" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10 col-md-4">
+                    <input type="text" class="form-control" id="title" name="title"placeholder="Please enter title">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="summary" class="col-sm-2 col-form-label">Summary</label>
+                  <div class="col-sm-10 col-md-4">
+                    <textarea class="form-control" name="summary" id="summary" rows="2" placeholder="Summary is here"></textarea>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="description" class="col-sm-2 col-form-label">Description</label>
+                  <div class="col-sm-10 col-md-4">
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="image" class="col-sm-2 col-form-label">Image</label>
+                  <div class="col-sm-10 col-md-4">
+                    <input type="file" class="form-control" id="image" name="image">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="category" class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10 col-md-4">
+                        <select class="form-select" name="category" id="category">
+                            <option value="-1" selected disabled>Please make yout choise</option>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.categoryid %>"><%= category.category_name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+
+
+               <div class="row mb-3 align-items-center">
+                   <label for="isActiveOnPage" class="form-check-label col-sm-2 col-form-label">Is Shown on Home Page</label>
+                   <div class="col-sm-10 col-md-4">
+                        <input class="form-check-input" type="checkbox" name="isActiveOnPage" id="isActiveOnPage">
+                    </div>
+                </div>
+
+               <div class="row mb-3 align-items-center">
+                    <label for="isActive" class="form-check-label col-sm-2 col-form-label">Is Active </label>
+                    <div class="col-sm-10 col-md-4">
+                        <input class="form-check-input" type="checkbox" name="isActive" id="isActive" checked>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+    <script>
+      ClassicEditor
+          .create( document.querySelector( '#description' ) )
+          .catch( error => {
+              console.error( error );
+          } );
+  </script>
+</body>
+</html>

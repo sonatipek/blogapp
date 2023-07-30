@@ -34,7 +34,7 @@
             <% blogs.forEach(blog => { %>
                 <tr>
                   <th scope="row">#<%= blog.blogid %></th>
-                  <td><img src="/img/<%= blog.img %>" width="150" class="img-fluid"></td>
+                  <td><img src="/img/<%= blog.image %>" width="150" class="img-fluid"></td>
                   <td><%= blog.title %></td>
                   <td>
                     <a href="/admin/blogs/delete/<%= blog.blogid %>" class="btn btn-sm btn-danger">Delete Blog</a>
