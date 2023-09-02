@@ -6,8 +6,9 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title"><%= blog.title %></h5>
-                <p class="card-text"><%- blog.description %></p>
-                <a class="btn btn-danger btn-sm" href="/blogs/<%= blog.blogid %>">Read Blog</a>
+                <p class="card-text text-secondary m-0 p-0"><small><%= blog.summary %></small></p>
+            
+                <a class="btn btn-danger btn-sm mt-3" href="/blogs/<%= blog.blogid %>">Read Blog</a>
             </div>
         </div>
     </div>

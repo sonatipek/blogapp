@@ -1,6 +1,5 @@
 // Requirements
 const express = require('express');
-const db = require('../data/db');
 const { upload } = require('../helpers/imageupload');
 const fs = require('fs');
 
@@ -116,9 +115,10 @@ router.get('/blog/create', async (req, res) => {
 
 });
 
-// Post Blog
-router.post('/blog/create', upload.single('image'), async (req, res) => {
+// Post Blog !TODO
+router.post('/blog/create', upload.single('blog_image'), async (req, res) => {
     try {
+    
         await Blog.create({
             title: req.body.title,
             summary: req.body.summary,
@@ -171,7 +171,7 @@ router.get('/blogs/:blogid', async (req, res) => {
 });
 
 // Update Blogs 
-// !TODO: req.file undefined geliyor, image upload çözülecek, html editör kullanılacak
+// !TODO: html editör kullanılacak
 router.post('/blogs/:blogid', upload.single('image'), async (req, res) => {
     const blogID = req.params.blogid,
         blogIDServer = req.body.blogid;
