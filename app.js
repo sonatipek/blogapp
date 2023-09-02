@@ -25,7 +25,9 @@ app.use(userRoutes);
 
 const Category = require('./models/category');
 const Blog = require('./models/blog');
+const dummyData = require('./data/dummy-data');
 
+dummyData();
 // relations
 // onte to many
 // Category.hasMany(Blog)
