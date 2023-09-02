@@ -16,7 +16,7 @@ router.use('/blogs/category/:categoryid', async (req, res) => {
         const blogs = await Blog.findAll({
             raw: true,
             where:{
-                categoryid: categoryid
+                categoryId: categoryid
             }
         });
         const categories = await Category.findAll({raw: true});

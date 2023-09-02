@@ -10,7 +10,7 @@
     <div class="row container mx-auto mt-5 border border-muted p-5 rounded">
         <div class="col-12">
             <form method="post" enctype="multipart/form-data">
-              <input type="hidden" name="blogid" value="<%= blog.blogid %>">
+              <input type="hidden" name="blogid" value="<%= blog.id %>">
               <input type="hidden" name="imageServer" value="<%= blog.image %>">
                 <h1 class="text-center mb-5 h2">Blog Update Form</h1>
 
@@ -48,10 +48,10 @@
                     <div class="col-sm-10 col-md-4">
                         <select class="form-select" name="category" id="category">
                             <% categories.forEach(category => { %>
-                                <% if (category.categoryid == blog.categoryid) { %>
-                                    <option selected value="<%= category.categoryid %>"><%= category.category_name %></option>
+                                <% if (category.id == blog.categoryId) { %>
+                                    <option selected value="<%= category.id %>"><%= category.category_name %></option>
                                     <% } else { %>
-                                        <option value="<%= category.categoryid %>"><%= category.category_name %></option>
+                                        <option value="<%= category.id %>"><%= category.category_name %></option>
                                 <% } %>
                              
                             <% }) %>

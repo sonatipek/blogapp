@@ -23,7 +23,13 @@ app.use(express.urlencoded({extended: true}))
 app.use('/admin', adminRoutes); //you can set a default startup path
 app.use(userRoutes);
 
+const Category = require('./models/category');
+const Blog = require('./models/blog');
 
+// relations
+// onte to many
+// Category.hasMany(Blog)
+// Blog.belongsTo(Category)
 
 app.listen(PORT, () => {
     console.log("Listening on port " + PORT);

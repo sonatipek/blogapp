@@ -2,12 +2,6 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../data/db');
 
 const Blog = sequelize.define("blogs", {
-    blogid: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false, 
-        primaryKey: true
-    },
     title:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -24,10 +18,6 @@ const Blog = sequelize.define("blogs", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    categoryid: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     isShownOnPage: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -36,10 +26,11 @@ const Blog = sequelize.define("blogs", {
         type: DataTypes.BOOLEAN,
         allowNull: false
     }
+    // if the relationship is ensured, foreign key will be added by sequelize
 });
 
 async function syncSQL() {
-    await Blog.sync({alter: true})
+    await Blog.sync({force: true})
     console.info("Blog table is added!")
 
     const count = await Blog.count()
@@ -49,9 +40,9 @@ async function syncSQL() {
             summary: "Lorem ipsum",
             description: "Lorem ipsum dolor sit amet",
             image: "1.jpg",
-            categoryid: "1",
             isShownOnPage: 1,
-            isActive: 1
+            isActive: 1,
+            categoryId: "1",
         })
 
         Blog.create({
@@ -59,9 +50,9 @@ async function syncSQL() {
             summary: "Lorem ipsum 2",
             description: "Lorem ipsum dolor sit amet 2",
             image: "2.jpg",
-            categoryid: "2",
             isShownOnPage: 1,
-            isActive: 1
+            isActive: 1,
+            categoryId: "2",
         })
         
     }

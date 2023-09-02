@@ -46,7 +46,7 @@
                         <select class="form-select" name="category" id="category">
                             <option value="-1" selected disabled>Please make yout choise</option>
                             <% categories.forEach(category => { %>
-                                <option value="<%= category.categoryid %>"><%= category.category_name %></option>
+                                <option value="<%= category.id %>"><%= category.category_name %></option>
                             <% }) %>
                         </select>
                     </div>

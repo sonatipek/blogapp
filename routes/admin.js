@@ -37,7 +37,7 @@ router.get('/categories/:categoryid', async (req, res) => {
         const [category, ] = await Category.findAll({
             raw: true,
             where: {
-                categoryid: categoryID
+                id: categoryID
             }
         })
         console.log(category);
@@ -60,7 +60,7 @@ router.post('/categories/:categoryid', async (req, res) => {
                 category_name: categoryName
             },{
                 where: {
-                    categoryid: categoryID
+                    id: categoryID
                 }
             })
 
@@ -78,7 +78,7 @@ router.use('/categories/delete/:categoryid', async (req, res) => {
     try {
         await Category.destroy({
             where:{
-                categoryid: categoryID
+                id: categoryID
             }
         });
         
@@ -124,7 +124,7 @@ router.post('/blog/create', upload.single('blog_image'), async (req, res) => {
             summary: req.body.summary,
             description: req.body.description,
             image: req.file.filename,
-            categoryid: req.body.category,
+            categoryId: req.body.category,
             isShownOnPage: req.body.isActiveOnPage  === "on" ? 1 : 0,
             isActive: req.body.isActive  === "on" ? 1 : 0
         })
@@ -143,7 +143,7 @@ router.get('/blogs/delete/:blogid', async (req, res) => {
     try {
         await Blog.destroy({
             where:{
-                blogid: blogID
+                id: blogID
             }
         });
 
@@ -188,7 +188,7 @@ router.post('/blogs/:blogid', upload.single('image'), async (req, res) => {
                 category: req.body.category
             }, {
                 where: {
-                  blogid: blogID
+                  id: blogID
                 }
             });
 

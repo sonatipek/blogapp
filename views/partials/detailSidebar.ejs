@@ -1,16 +1,16 @@
 <div class="list-group">
     <% categories.forEach(categoryEl => { %>
-        <a href="/blogs/category/<%= categoryEl.categoryid %>" class="list-group-item list-group-item-action text-danger fw-bold">
+        <a href="/blogs/category/<%= categoryEl.id %>" class="list-group-item list-group-item-action text-danger fw-bold">
             <%= categoryEl.category_name %>
             <% blogs.forEach(blog => { %>
-                <% if (categoryEl.categoryid == blog.categoryid) { %>
+                <% if (categoryEl.id == blog.categoryId) { %>
                     
-                    <% if (parseInt(blogid) === blog.blogid) { %>
-                        <a href="/blogs/<%= blog.blogid %>" class="fw-bold list-group-item list-group-item-action text-muted ps-5">
+                    <% if (parseInt(blogid) === blog.id) { %>
+                        <a href="/blogs/<%= blog.id %>" class="fw-bold list-group-item list-group-item-action text-muted ps-5">
                             <%= blog.title %>
                         </a>
                     <% }else{ %>
-                        <a href="/blogs/<%= blog.blogid %>" class="list-group-item list-group-item-action text-muted ps-5">
+                        <a href="/blogs/<%= blog.id %>" class="list-group-item list-group-item-action text-muted ps-5">
                             <%= blog.title %>
                         </a>
                     <% } %>

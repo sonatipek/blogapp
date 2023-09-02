@@ -2,12 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../data/db');
 
 const Category = sequelize.define("category", {
-    categoryid: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false, 
-        primaryKey: true
-    },
+    // primary key will add by sequelize
     category_name:{
         type: DataTypes.STRING,
         allowNull: false,
@@ -18,7 +13,7 @@ const Category = sequelize.define("category", {
 
 
 async function syncSQL() {
-    await Category.sync({alter: true})
+    await Category.sync({force: true})
     console.info("Category table is added!")
 
     if (await Category.count() === 0) {
