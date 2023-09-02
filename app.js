@@ -23,15 +23,30 @@ app.use(express.urlencoded({extended: true}))
 app.use('/admin', adminRoutes); //you can set a default startup path
 app.use(userRoutes);
 
+
+
+// relations
 const Category = require('./models/category');
 const Blog = require('./models/blog');
-const dummyData = require('./data/dummy-data');
 
-dummyData();
-// relations
 // onte to many
-// Category.hasMany(Blog)
-// Blog.belongsTo(Category)
+Category.hasMany(Blog, {
+    foreignKey:{
+        allowNull: false,
+        defaultValue: 1
+    }
+})
+Blog.belongsTo(Category)
+
+
+// sync
+const sequelize = require('./data/db');
+const dummyData = require('./data/dummy-data');
+// IIFE
+(async () => {
+    await sequelize.sync({alter: true})
+    await dummyData();
+})();
 
 app.listen(PORT, () => {
     console.log("Listening on port " + PORT);

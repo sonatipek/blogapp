@@ -25,8 +25,7 @@ async function syncSQL() {
             description: "Lorem ipsum dolor sit amet",
             image: "1.jpg",
             isShownOnPage: 1,
-            isActive: 1,
-            categoryId: "1",
+            isActive: 1
         })
 
         Blog.create({
@@ -35,8 +34,7 @@ async function syncSQL() {
             description: "Lorem ipsum dolor sit amet 2",
             image: "2.jpg",
             isShownOnPage: 1,
-            isActive: 1,
-            categoryId: "2",
+            isActive: 1
         })
     }
 }
