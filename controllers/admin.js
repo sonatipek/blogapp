@@ -178,11 +178,18 @@ exports.deleteBlog = async (req, res) => {
     const blogID = req.params.blogid;
 
     try {
+        const blog = await Blog.findByPk(blogID,{raw:true});
+
         await Blog.destroy({
             where:{
                 id: blogID
             }
         });
+        
+        // Delete image from server
+        fs.unlink(`./public/img/${blog.image}`, err => {
+            console.error(err);
+        })
 
         res.redirect('/admin/blogs?action=delete')
     } catch (err) {
