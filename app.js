@@ -32,9 +32,14 @@ const Blog = require('./models/blog');
 // onte to many
 Category.hasMany(Blog, {
     foreignKey:{
-        allowNull: false,
+        allowNull: true,
         defaultValue: 1
-    }
+    },
+    onDelete: "RESTRICT", //bu kategoriye ait bir blog varsa ve Kategori silinirse bunu engelle.
+    onUpdate: "RESTRICT" //bu kategoriye ait bir blog varsa ve Kategori silinirse bunu engelle.
+    // onDelete: "CASCADE" //bu kategoriye ait bir blog varsa ve Categori silinirse, blog da silinir. default değerdir
+    // onDelete: "SET NULL" //bu kategoriye ait bir blog varsa ve Categori silinirse, categorisi null olarak eklenir.  null değer içermesine izin verilmelidir
+    // onUpdate: "CASCADE" //bu kategoriye ait bir blog varsa ve Kategori güncellenirse blog da güncellenir. default değerdir
 })
 Blog.belongsTo(Category)
 
