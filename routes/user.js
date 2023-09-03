@@ -1,87 +1,21 @@
 // Requirements
 const express = require('express');
-const db = require('../data/db');
+// Controllers
+const userController = require('../controllers/user');
 
 // Create Router
 const router = express.Router();
 
-// Create Models
-const Blog = require('../models/blog');
-const Category = require('../models/category');
 
-// Blogs by Category
-router.use('/blogs/category/:categoryid', async (req, res) => {
-    try {
-        const categoryid = req.params.categoryid;
-        const blogs = await Blog.findAll({
-            raw: true,
-            where:{
-                categoryId: categoryid
-            }
-        });
-        const categories = await Category.findAll({raw: true});
-        
-        
+// User Routes
+router.use('/blogs/category/:categoryid', userController.blogByCategory);
 
-        res.render("pages/category-list", {blogs: blogs, categories: categories, selectedCategory: categoryid}) 
-    } catch (err) {
-        console.log(err);
-    }
-});
+router.use("/blogs/:blogid", userController.blogDetail);
 
-// Blog Detail
-router.use("/blogs/:blogid",async (req, res) => {
-    try {
-        const blogs = await Blog.findAll({raw: true});
-        const categories = await Category.findAll({raw: true});
-     
-        
-        if (req.params.blogid > 0) {
-            res.render('pages/blog-detail', {blogs: blogs, categories: categories, blogid: req.params.blogid});
-        }else{
-            res.render("pages/errors/404.ejs");
-        }
-    } catch (error) {
-        console.log(error);
-    }
+router.use("/blogs", userController.allBlogs);
 
-});
+router.use("/", userController.homepage);
 
-// All Blogs
-router.use("/blogs", async (req, res) => {
 
-    try {
-        const blogs = await Blog.findAll({raw: true});
-        const categories = await Category.findAll({raw: true});
-       
-    
-        res.render('pages/blog', {
-            blogs: blogs,
-            categories: categories
-        })
-        
-    } catch (err) {
-        console.log(err);
-    }
-
-});
-
-// Homepage
-router.use("/",async (req, res) => {
-    try {
-        const blogs = await Blog.findAll({raw: true});
-        const categories = await Category.findAll({raw: true});
-        
-        res.render('pages/index', {
-            blogs:blogs,
-            categories: categories
-        })
-        
-    } catch (err) {
-        console.log(err);
-    }
-
-    
-});
 
 module.exports=router;
