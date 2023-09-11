@@ -18,7 +18,7 @@ router.get('/categories/:slug', adminController.getUpdateCategory);
 
 router.post('/categories/:slug', adminController.postUpdateCategory);
 
-router.use('/categories/delete/:categoryid', adminController.deleteCategory);
+router.get('/categories/delete/:categoryid', adminController.deleteCategory);
 
 router.get('/categories', adminController.listCategory);
 
@@ -34,6 +34,6 @@ router.post('/blogs/:slug', upload.single('image'), adminController.postUpdateBl
 
 router.get('/blogs/delete/:blogid', adminController.deleteBlog);
 
-router.use('/blogs', adminController.listBlog);
+router.get('/blogs', adminController.listBlog);
 
 module.exports=router;
