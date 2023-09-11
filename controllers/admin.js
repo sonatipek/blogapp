@@ -86,7 +86,7 @@ exports.listCategory = async (req, res) => {
     try {
         const categories = await Category.findAll({raw: true})
         
-        res.render('admin/category-list', {categories, action});
+        res.render('admin/category-list', {categories, action, categoryCount});
     } catch (error) {
         console.error(error);
     }

@@ -26,6 +26,7 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Category</th>
+              <th scope="col">Linked Blogs Count</th>
               <th scope="col"></th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                 <tr>
                   <th scope="row">#<%= category.id %></th>
                   <td><%= category.category_name %></td>
+                  <td><%= categoryCount %></td>
                   <td>
                     <a href="/admin/categories/delete/<%= category.id %>" class="btn btn-sm btn-danger">Delete Blog</a>
                     <a href="/admin/categories/<%= category.id %>" class="btn btn-sm btn-outline-danger">Update Blog</a>
