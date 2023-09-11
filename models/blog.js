@@ -6,6 +6,10 @@ const Blog = sequelize.define("blogs", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    url:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     summary: {
         type: DataTypes.STRING,
         allowNull: true

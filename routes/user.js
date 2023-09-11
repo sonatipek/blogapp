@@ -8,9 +8,9 @@ const router = express.Router();
 
 
 // User Routes
-router.use('/blogs/category/:categoryid', userController.blogByCategory);
+router.use('/blogs/category/:slug', userController.blogByCategory);
 
-router.use("/blogs/:blogid", userController.blogDetail);
+router.use("/blogs/:slug", userController.blogDetail);
 
 router.use("/blogs", userController.allBlogs);
 

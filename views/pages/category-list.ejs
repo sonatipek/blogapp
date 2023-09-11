@@ -19,13 +19,13 @@
                 <div class="list-group">
                     
                     <% categories.forEach(categoryEl => { %>   
-                        <a href="/blogs/category/<%= categoryEl.id %>" class="list-group-item list-group-item-action text-danger fw-bold <%= selectedCategory == categoryEl.id ? "bg-danger-subtle" : "" %>">
+                        <a href="/blogs/category/<%= categoryEl.url %>" class="list-group-item list-group-item-action text-danger fw-bold <%= selectedCategory == categoryEl.url ? "bg-danger-subtle" : "" %>">
 
                             <%= categoryEl.category_name %>
                             
                             <% blogs.forEach(blog => { %>   
                                 <% if (categoryEl.id == blog.categoryId) { %>
-                                    <a href="/blogs/<%= blog.id %>" class="list-group-item list-group-item-action text-muted ps-5">
+                                    <a href="/blogs/<%= blog.url %>" class="list-group-item list-group-item-action text-muted ps-5">
                                         <%= blog.title %>
                                     </a>
                                     

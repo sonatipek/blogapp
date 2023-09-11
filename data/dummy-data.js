@@ -1,5 +1,6 @@
 const Category = require('../models/category');
 const Blog = require('../models/blog');
+const slugfield = require('../helpers/slugfield');
 
 async function syncSQL() {
     await Blog.sync({alter: true})
@@ -12,15 +13,16 @@ async function syncSQL() {
     if (count === 0) {
 
         await Category.bulkCreate([
-            {category_name: "Portfolio"},
-            {category_name: "Software"},
-            {category_name: "Web Frameworks"},
+            {category_name: "Portfolio", url: slugfield("Portfolio")},
+            {category_name: "Software", url: slugfield("Software")},
+            {category_name: "Web Frameworks", url: slugfield("Web Frameworks")},
 
         ])
 
 
         Blog.create({
             title: "Lorem",
+            url: slugfield("Lorem"),
             summary: "Lorem ipsum",
             description: "Lorem ipsum dolor sit amet",
             image: "1.jpg",
@@ -30,6 +32,7 @@ async function syncSQL() {
 
         Blog.create({
             title: "Lorem 2",
+            url: slugfield("Lorem 2"),
             summary: "Lorem ipsum 2",
             description: "Lorem ipsum dolor sit amet 2",
             image: "2.jpg",

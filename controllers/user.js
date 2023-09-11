@@ -4,18 +4,28 @@ const Category = require('../models/category');
 
 exports.blogByCategory = async (req, res) => {
     try {
-        const categoryid = req.params.categoryid;
+        const url = req.params.slug;
+
         const blogs = await Blog.findAll({
-            raw: true,
             where:{
-                categoryId: categoryid
-            }
+                isActive: true
+            },
+            include:{
+                model: Category,
+                where: {
+                    url: url
+                }
+            },
+            raw: true
         });
         const categories = await Category.findAll({raw: true});
         
-        
 
-        res.render("pages/category-list", {blogs: blogs, categories: categories, selectedCategory: categoryid}) 
+        res.render("pages/category-list", {
+            blogs: blogs,
+            categories: categories,
+            selectedCategory: url
+        }) 
     } catch (err) {
         console.log(err);
     }
@@ -27,8 +37,8 @@ exports.blogDetail = async (req, res) => {
         const categories = await Category.findAll({raw: true});
      
         
-        if (req.params.blogid > 0) {
-            res.render('pages/blog-detail', {blogs: blogs, categories: categories, blogid: req.params.blogid});
+        if (req.params.slug) {
+            res.render('pages/blog-detail', {blogs: blogs, categories: categories, url: req.params.slug});
         }else{
             res.render("pages/errors/404.ejs");
         }

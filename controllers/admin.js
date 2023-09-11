@@ -1,5 +1,6 @@
 // Requirements
 const fs = require('fs');
+const slugField = require('../helpers/slugfield');
 
 // Create Models
 const Blog = require('../models/blog');
@@ -14,7 +15,7 @@ exports.postCreateCategory = async (req, res) => {
     const categoryName = req.body.category_name;
 
     try {
-        await Category.create({category_name: categoryName});
+        await Category.create({category_name: categoryName, url: slugField(categoryName)});
 
         res.redirect('/admin/categories?action=create');
     } catch (err) {
@@ -23,15 +24,14 @@ exports.postCreateCategory = async (req, res) => {
 }
 
 exports.getUpdateCategory = async (req, res) => {
-    const categoryID = req.params.categoryid;
+    const url = req.params.slug;
     try {
         const [category, ] = await Category.findAll({
             raw: true,
             where: {
-                id: categoryID
+                url: url
             }
         })
-        console.log(category);
 
         return res.render('admin/category-edit', {category});   
     
@@ -41,17 +41,17 @@ exports.getUpdateCategory = async (req, res) => {
 }
 
 exports.postUpdateCategory = async (req, res) => {
-    const categoryID = req.params.categoryid;
-    const categoryIDServer = req.body.categoryid;
+    const url = req.params.slug;
+    const urlServer = req.body.categoryurl;
     const categoryName = req.body.category;
 
     try {
-        if (categoryID == categoryIDServer) {       
+        if (url == urlServer) {       
             await Category.update({
                 category_name: categoryName
             },{
                 where: {
-                    id: categoryID
+                    url: url
                 }
             })
 
@@ -86,7 +86,7 @@ exports.listCategory = async (req, res) => {
     try {
         const categories = await Category.findAll({raw: true})
         
-        res.render('admin/category-list', {categories, action, categoryCount});
+        res.render('admin/category-list', {categories, action});
     } catch (error) {
         console.error(error);
     }
@@ -110,6 +110,7 @@ exports.postCreeateBlog = async (req, res) => {
     
         await Blog.create({
             title: req.body.title,
+            url: slugField(req.body.title),
             summary: req.body.summary,
             description: req.body.description,
             image: req.file.filename,
@@ -126,9 +127,15 @@ exports.postCreeateBlog = async (req, res) => {
 }
 
 exports.getUpdateBlog = async (req, res) => {
-    const blogID = req.params.blogid;
+    const url = req.params.slug;
+
     try {
-        const blog = await Blog.findByPk(blogID,{raw:true});
+        const blog = await Blog.findOne({
+            where: {
+                url: url
+            },
+            raw: true
+        });
         const categories = await Category.findAll({raw:true});    
 
         
@@ -142,24 +149,27 @@ exports.getUpdateBlog = async (req, res) => {
 }
 
 exports.postUpdateBlog = async (req, res) => {
-    const blogID = req.params.blogid,
-        blogIDServer = req.body.blogid;
+    const url = req.params.slug,
+    urlServer = req.body.blogurl;
 
     try {
-        if (blogID === blogIDServer) {
+        if (url === urlServer) {
             await Blog.update({ 
                 title: req.body.title,
+                url: slugField(req.body.title),
                 summary: req.body.summary,
                 description: req.body.description,
                 image: req.file ? req.file.filename : req.body.imageServer,
                 isShownOnPage: req.body.isActiveOnPage  === "on" ? 1 : 0,
                 isActive: req.body.isActive  === "on" ? 1 : 0,
-                category: req.body.category
+                categoryId: req.body.category
             }, {
                 where: {
-                  id: blogID
+                    url: url
                 }
             });
+
+            console.log(req.body.category)
 
             if (req.file) {
                 fs.unlink(`./public/img/${req.body.imageServer}`, err => {
@@ -168,7 +178,7 @@ exports.postUpdateBlog = async (req, res) => {
             }
             return res.redirect('/admin/blogs?action=update');
         }
-        res.redirect('/admin/blogs?error=true')
+        res.redirect('/admin/blogs?action=error')
         
     } catch (err) {
         console.log(err);
