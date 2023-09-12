@@ -4,7 +4,7 @@ const path = require('path');
 
 const userRoutes = require('./routes/user');
 const adminRoutes = require('./routes/admin');
-
+const authRoutes = require('./routes/auth')
 
 // Variables
 const PORT = 3000; 
@@ -21,6 +21,7 @@ app.use(express.urlencoded({extended: true}))
 
 // !Routes
 app.use('/admin', adminRoutes); //you can set a default startup path
+app.use('/auth', authRoutes); //you can set a default startup path
 app.use(userRoutes);
 
 
