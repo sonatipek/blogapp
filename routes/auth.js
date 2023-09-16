@@ -7,8 +7,13 @@ const router = express.Router();
 
 
 // Auth Routes
+// Register Routes
 router.get('/register', authController.getRegister);
 router.post('/register', authController.postRegister);
+
+// Login Routes
+router.get('/login', authController.getLogin)
+router.post('/login', authController.postLogin)
 
 
 
