@@ -20,6 +20,7 @@ const path = require('path');
 // Custom Modules
 const sequelize = require('./data/db');
 const dummyData = require('./data/dummy-data');
+const locals = require('./middlewares/locals');
 
 // Template Engine
 app.set("view engine", 'ejs'); // you can use any template engine
@@ -46,12 +47,7 @@ app.use(session({
 
 }));
 
-app.use((req, res, next) => {
-    res.locals.isAuth = req.session.isAuth;
-    res.locals.fullname = req.session.fullname;
-
-    next();
-})
+app.use(locals);
 
 app.use('/libs', express.static(path.join(__dirname, 'node_modules'))); //you can give an alias for static folder if you want
 app.use(express.static(path.join(__dirname, 'public')));
