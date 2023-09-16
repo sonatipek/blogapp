@@ -46,6 +46,13 @@ app.use(session({
 
 }));
 
+app.use((req, res, next) => {
+    res.locals.isAuth = req.session.isAuth;
+    res.locals.fullname = req.session.fullname;
+
+    next();
+})
+
 app.use('/libs', express.static(path.join(__dirname, 'node_modules'))); //you can give an alias for static folder if you want
 app.use(express.static(path.join(__dirname, 'public')));
 

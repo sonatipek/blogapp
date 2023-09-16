@@ -24,8 +24,7 @@ exports.blogByCategory = async (req, res) => {
         res.render("pages/category-list", {
             blogs: blogs,
             categories: categories,
-            selectedCategory: url,
-            isAuth: req.session.isAuth
+            selectedCategory: url
         }) 
     } catch (err) {
         console.log(err);
@@ -42,8 +41,7 @@ exports.blogDetail = async (req, res) => {
             res.render('pages/blog-detail', {
                 blogs: blogs, 
                 categories: categories, 
-                url: req.params.slug,
-                isAuth: req.session.isAuth
+                url: req.params.slug
             });
         }else{
             res.render("pages/errors/404.ejs");
@@ -63,8 +61,7 @@ exports.allBlogs = async (req, res) => {
     
         res.render('pages/blog', {
             blogs: blogs,
-            categories: categories,
-            isAuth: req.session.isAuth
+            categories: categories
         })
         
     } catch (err) {
@@ -80,8 +77,7 @@ exports.homepage = async (req, res) => {
         
         res.render('pages/index', {
             blogs:blogs,
-            categories: categories,
-            isAuth: req.session.isAuth
+            categories: categories
         })
         
     } catch (err) {

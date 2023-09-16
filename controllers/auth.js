@@ -63,8 +63,10 @@ exports.postLogin = async (req, res) => {
             // res.cookie('isAuth', 1)
 
             // Session create
-            req.session.isAuth = 1;
-            res.redirect('/');
+            req.session.isAuth = true;
+            req.session.fullname = user.fullname;
+            
+            return res.redirect('/');
         }else{
             res.render('auth/login', {message: "Parola hatalı!"})
         }

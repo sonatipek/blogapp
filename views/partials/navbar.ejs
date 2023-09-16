@@ -1,39 +1,49 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-    <div class="container-fluid">
-        <a href="/" class="container navbar-brand fw-bold fs-4">./Blog Example</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<div class="w-100 bg-danger" style="height: 1vh; width: 100%;"></div>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
+<nav class="navbar navbar-expand-lg bg-body-tertiary rounded mb-5" aria-label="Thirteenth navbar example">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <ul class="navbar-nav me-auto column-gap-3">
-          <% if (typeof isAuth != "undefined" && isAuth == 1) { %>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Admin Panel
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/admin/blog/create">Blog Create</a></li>
-                    <li><a class="dropdown-item" href="/admin/blogs">Blog List</a></li>
-                    <li><a class="dropdown-item" href="/admin/category/create">Category Create</a></li>
-                    <li><a class="dropdown-item" href="/admin/categories">Category List</a></li>
-                </ul>
-            </li>
-          <% } %>
-          <li class="nav-item"><a href="/blogs" class="btn btn-light">Blog</a></li>
+    <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
+      <a href="/" class="container navbar-brand fw-bold fs-4">./Blog Example</a>
+      
+      <ul class="navbar-nav col-lg-6 justify-content-lg-center fw-semibold">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item text-center"><a class="nav-link" href="/profile"></a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blogs">Blog</a>
+        </li>
+
+        <% if (isAuth) { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Admin Panel</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/admin/blog/create">Blog Create</a></li>
+              <li><a class="dropdown-item" href="/admin/blogs">Blog List</a></li>
+              <li><a class="dropdown-item" href="/admin/category/create">Category Create</a></li>
+              <li><a class="dropdown-item" href="/admin/categories">Category List</a></li>
+          </ul>
+          </li>
+        <% } %>
+
+      </ul>
+      <div class="d-lg-flex col-lg-3 justify-content-lg-end ">
+        <% if (isAuth) { %>
+          <a class="btn">Hoşgeldin,<a href="/profile" class="my-auto link-danger link-offset-2">
+            <%= fullname %>
+          </a></a>
+          <a href="/auth/logout" class="btn btn-dark fw-semibold ms-3">Çıkış</a>
           
-          <% if (typeof isAuth != "undefined" && isAuth == 1) { %>
-            <li class="nav-item"><a href="/auth/logout" class="btn btn-light">Çıkış</a></li>
+        <% } else { %>
+          <a href="/auth/register" class="btn btn-dark me-2 fw-semibold">Kaydol</a>
+          <a href="/auth/login" class="btn btn-outline-dark fw-semibold">Giriş</a>
             
-            <% } else { %>
-              <li class="nav-item"><a href="/auth/register" class="btn btn-light">Kaydol</a></li>
-              <li class="nav-item"><a href="/auth/login" class="btn btn-outline-light">Giriş</a></li>
-              
-          <% } %>
-        </ul>
-
+        <% } %>
       </div>
-
     </div>
-  </nav>
+  </div>
+</nav>
