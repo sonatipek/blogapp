@@ -73,7 +73,8 @@ exports.homepage = async (req, res) => {
         
         res.render('pages/index', {
             blogs:blogs,
-            categories: categories
+            categories: categories,
+            isAuth: req.cookies.isAuth
         })
         
     } catch (err) {

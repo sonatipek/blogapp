@@ -4,8 +4,11 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
+
         <ul class="navbar-nav me-auto column-gap-3">
+          <% if (typeof isAuth != "undefined" && isAuth == 1) { %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Admin Panel
@@ -17,8 +20,20 @@
                     <li><a class="dropdown-item" href="/admin/categories">Category List</a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="/blogs" class="btn btn-light">Blogs</a></li>
+          <% } %>
+          <li class="nav-item"><a href="/blogs" class="btn btn-light">Blog</a></li>
+          
+          <% if (typeof isAuth != "undefined" && isAuth == 1) { %>
+            <li class="nav-item"><a href="/auth/logout" class="btn btn-light">Çıkış</a></li>
+            
+            <% } else { %>
+              <li class="nav-item"><a href="/auth/register" class="btn btn-light">Kaydol</a></li>
+              <li class="nav-item"><a href="/auth/login" class="btn btn-outline-light">Giriş</a></li>
+              
+          <% } %>
         </ul>
+
       </div>
+
     </div>
   </nav>

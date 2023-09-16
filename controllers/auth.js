@@ -37,6 +37,7 @@ exports.getLogin = async (req, res) => {
         console.error(error);
     }
 }
+
 exports.postLogin = async (req, res) => {
     const email = req.body.user_email,
     password = req.body.user_password;
@@ -58,11 +59,24 @@ exports.postLogin = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
+            // Cookie create
+            res.cookie('isAuth', 1)
             res.redirect('/');
         }else{
             res.render('auth/login', {message: "Parola hatalı!"})
         }
 
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// Logout Controller
+exports.getLogout = async (req, res) => {
+    try {
+        res.clearCookie('isAuth');
+
+        return res.redirect('/');
     } catch (error) {
         console.error(error);
     }
