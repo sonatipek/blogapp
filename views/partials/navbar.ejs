@@ -33,10 +33,10 @@
       </ul>
       <div class="d-lg-flex col-lg-3 justify-content-lg-end ">
         <% if (isAuth) { %>
-          <a class="btn">Hoşgeldin,<a href="/profile" class="my-auto link-danger link-offset-2">
+          <p class="my-auto">Hoşgeldin, <a href="/profile" class="my-auto link-danger link-offset-2">
             <%= fullname %>
-          </a></a>
-          <a href="/auth/logout" class="btn btn-dark fw-semibold ms-3">Çıkış</a>
+          </a></p>
+          <a href="/auth/logout" class="btn btn-sm btn-dark fw-semibold ms-3">Çıkış</a>
           
         <% } else { %>
           <a href="/auth/register" class="btn btn-dark me-2 fw-semibold">Kaydol</a>
