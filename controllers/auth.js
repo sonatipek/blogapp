@@ -60,7 +60,10 @@ exports.postLogin = async (req, res) => {
 
         if (isMatch) {
             // Cookie create
-            res.cookie('isAuth', 1)
+            // res.cookie('isAuth', 1)
+
+            // Session create
+            req.session.isAuth = 1;
             res.redirect('/');
         }else{
             res.render('auth/login', {message: "Parola hatalı!"})
@@ -74,7 +77,7 @@ exports.postLogin = async (req, res) => {
 // Logout Controller
 exports.getLogout = async (req, res) => {
     try {
-        res.clearCookie('isAuth');
+        await req.session.destroy();
 
         return res.redirect('/');
     } catch (error) {

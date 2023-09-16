@@ -7,6 +7,7 @@ const app = express();
 // Cookie Parser & Sessions
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // Routes Requirements
 const userRoutes = require('./routes/user');
@@ -38,7 +39,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 //milisecond
-    }
+    },
+    store: new SequelizeStore({
+        db: sequelize 
+    })
 
 }));
 
