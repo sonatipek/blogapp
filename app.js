@@ -10,14 +10,15 @@ const authRoutes = require('./routes/auth')
 const PORT = 3000; 
 
 // Create instance
-const app = express()
+const app = express();
+const cookieParser = require('cookie-parser');
 
 // Middlewares
 app.use('/libs', express.static(path.join(__dirname, 'node_modules'))); //you can give an alias for static folder if you want
 app.use(express.static(path.join(__dirname, 'public')));
-app.set("view engine", 'ejs') // you can use any template engine
-app.use(express.urlencoded({extended: true}))
-
+app.set("view engine", 'ejs'); // you can use any template engine
+app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // !Routes
 app.use('/admin', adminRoutes); //you can set a default startup path
