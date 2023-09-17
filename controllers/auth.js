@@ -17,6 +17,12 @@ exports.postRegister = async (req, res) => {
         email = req.body.user_email,
         password = await bcrypt.hash(req.body.user_password, 10);
 
+        const emailToRegister = await User.findOne({where: {email: email}});
+        if (emailToRegister) {
+            req.session.message = "Bu email adresi ile kayıt olunmuş. Lütfen giriş yapın."
+            return res.redirect('/auth/login');
+        }
+
         User.create({
             fullname: name,
             email: email,
@@ -32,7 +38,10 @@ exports.postRegister = async (req, res) => {
 // Login Controller
 exports.getLogin = async (req, res) => {
     try {
-        return res.render('auth/login', {returnUrl: req.query});
+        const message = req.session.message;
+        delete req.session.message;
+        
+        return res.render('auth/login', {returnUrl: req.query, message: message});
     } catch (error) {
         console.error(error);
     }
