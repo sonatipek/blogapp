@@ -30,12 +30,12 @@ router.get('/blog/create', routeProtection, adminController.getCreateBlog);
 
 router.post('/blog/create', routeProtection, upload.single('blog_image'), adminController.postCreeateBlog);
 
-router.get('/blogs/:slug', adminController.getUpdateBlog);
+router.get('/blogs/:slug', routeProtection, adminController.getUpdateBlog);
 
-router.post('/blogs/:slug', upload.single('image'), adminController.postUpdateBlog);
+router.post('/blogs/:slug', routeProtection, upload.single('image'), adminController.postUpdateBlog);
 
-router.get('/blogs/delete/:blogid', adminController.deleteBlog);
+router.get('/blogs/delete/:blogid',routeProtection, adminController.deleteBlog);
 
-router.get('/blogs', adminController.listBlog);
+router.get('/blogs', routeProtection, adminController.listBlog);
 
 module.exports=router;
