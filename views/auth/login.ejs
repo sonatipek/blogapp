@@ -5,10 +5,17 @@
 </head>
 <body>
   <% if (typeof message != "undefined") { %>
-    <div class="alert alert-warning">
+    <div class="alert alert-warning text-center">
       <%= message %>
     </div>
   <% } %>
+
+  <% if (returnUrl.returnUrl) { %>
+    <div class="alert alert-warning text-center">
+      Gitmek istediğiniz sayfaya gitmek için yetkiniz yok. Yetki doğrulaması için giriş yapın. <br> Yetki doğrulamasının başarılı olması halinde linke yönlendirileceksiniz.
+    </div>
+  <% } %>
+
     <form method="post" class="container mt-5 mx-auto">
         <div class="mb-3 col-8">
           <label for="user_email" class="form-label">Email address</label>

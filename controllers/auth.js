@@ -32,7 +32,7 @@ exports.postRegister = async (req, res) => {
 // Login Controller
 exports.getLogin = async (req, res) => {
     try {
-        return res.render('auth/login');
+        return res.render('auth/login', {returnUrl: req.query});
     } catch (error) {
         console.error(error);
     }
@@ -52,7 +52,8 @@ exports.postLogin = async (req, res) => {
         // Email control
         if (!user) {
             return res.render('auth/login', {
-                message: "Böyle bir kullanıcı bulunamadı!"
+                message: "Böyle bir kullanıcı bulunamadı!",
+                returnUrl: req.query
             });
         }
         // password control
@@ -65,10 +66,11 @@ exports.postLogin = async (req, res) => {
             // Session create
             req.session.isAuth = true;
             req.session.fullname = user.fullname;
+            const returnUrl = req.query.returnUrl || "/";
             
-            return res.redirect('/');
+            return res.redirect(returnUrl);
         }else{
-            res.render('auth/login', {message: "Parola hatalı!"})
+            res.render('auth/login', {message: "Parola hatalı!", returnUrl: req.query})
         }
 
     } catch (error) {
