@@ -1,6 +1,11 @@
 // Create Models
 const User = require('../models/user');
+// Node Modules
 const bcrypt = require('bcrypt');
+
+// Custom Modules
+const emailService = require('../helpers/nodemail');
+
 
 // Register Controller
 exports.getRegister = async (req, res) => {
@@ -25,11 +30,18 @@ exports.postRegister = async (req, res) => {
             return res.redirect('/auth/login');
         }
 
-        User.create({
+        const newUser = await User.create({
             fullname: name,
             email: email,
             password: password
-        }) 
+        });
+
+        emailService.sendMail({
+            from: process.env.MAIL_USERNAME,
+            to: newUser.email,
+            subject: "Kaydınız Başarılı!",
+            html: "<h1>BlogApp ailesine hoşgeldiniz!</h1> <br><br> <p>Hesabınız başarılı bir şekilde oluşturuldu.</p>"
+        })
 
         res.redirect('/auth/login')
     } catch (error) {
