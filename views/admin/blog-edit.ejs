@@ -9,7 +9,7 @@
 
     <div class="row container mx-auto mt-5 border border-muted p-5 rounded">
         <div class="col-12">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="/admin/blogs/<%= blog.url %>?_csrf=<%= csrfToken %>"> 
               <input type="hidden" name="blogurl" value="<%= blog.url %>">
               <input type="hidden" name="imageServer" value="<%= blog.image %>">
                 <h1 class="text-center mb-5 h2">Blog Update Form</h1>

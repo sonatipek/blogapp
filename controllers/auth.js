@@ -5,7 +5,9 @@ const bcrypt = require('bcrypt');
 // Register Controller
 exports.getRegister = async (req, res) => {
     try {
-        return res.render('auth/register');
+        return res.render('auth/register', {
+            csrfToken: req.csrfToken()
+        });
     } catch (error) {
         console.error(error)
     }
@@ -41,7 +43,11 @@ exports.getLogin = async (req, res) => {
         const message = req.session.message;
         delete req.session.message;
         
-        return res.render('auth/login', {returnUrl: req.query, message: message});
+        return res.render('auth/login', {
+            returnUrl: req.query,
+            message: message, 
+            csrfToken: req.csrfToken()
+        });
     } catch (error) {
         console.error(error);
     }

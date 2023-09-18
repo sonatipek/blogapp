@@ -8,7 +8,7 @@ const Category = require('../models/category');
 
 // Category Routes
 exports.getCreateCategory = async (req, res) => {
-    res.render('admin/category-create');
+    res.render('admin/category-create', {csrfToken: req.csrfToken()});
 }
 
 exports.postCreateCategory = async (req, res) => {
@@ -33,7 +33,7 @@ exports.getUpdateCategory = async (req, res) => {
             }
         })
 
-        return res.render('admin/category-edit', {category});   
+        return res.render('admin/category-edit', {category, csrfToken: req.csrfToken()});   
     
     } catch (error) {
         console.error(error);
@@ -98,7 +98,7 @@ exports.getCreateBlog = async (req, res) => {
     try {
         const categories = await Category.findAll({raw: true})
         
-        res.render('admin/blog-create', {categories});
+        res.render('admin/blog-create', {categories, csrfToken: req.csrfToken()});
     } catch (err) {
         console.error(err)
     }
@@ -140,7 +140,7 @@ exports.getUpdateBlog = async (req, res) => {
 
         
         if (blog) {
-            return res.render('admin/blog-edit', {categories, blog});
+            return res.render('admin/blog-edit', {categories, blog, csrfToken: req.csrfToken()});
         }
         res.redirect('/admin/blogs')
     } catch (err) {

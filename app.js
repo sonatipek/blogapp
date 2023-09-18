@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth');
 
 // Node Modules
 const path = require('path');
+const csurt = require('csurf')
 
 // Custom Modules
 const sequelize = require('./data/db');
@@ -29,6 +30,7 @@ app.set("view engine", 'ejs'); // you can use any template engine
 const Category = require('./models/category');
 const Blog = require('./models/blog');
 const User = require('./models/user');
+const csurf = require('csurf');
 
 // Middlewares
 app.use(express.urlencoded({extended: true}));
@@ -48,6 +50,7 @@ app.use(session({
 }));
 
 app.use(locals);
+app.use(csurf());
 
 app.use('/libs', express.static(path.join(__dirname, 'node_modules'))); //you can give an alias for static folder if you want
 app.use(express.static(path.join(__dirname, 'public')));

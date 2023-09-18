@@ -9,7 +9,7 @@
 
     <div class="row container mx-auto mt-5 border border-muted p-5 rounded">
         <div class="col-12">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" action="/admin/blog/create?_csrf=<%= csrfToken %>">
                 <h1 class="text-center mb-5 h2">Blog Create Form</h1>
 
                 <div class="row mb-3">

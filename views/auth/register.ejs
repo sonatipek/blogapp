@@ -5,21 +5,22 @@
 </head>
 <body>
     <form method="post" class="container mt-5 mx-auto">
-        <div class="mb-3 col-8">
-          <label for="user_name" class="form-label">Your Full Name</label>
-          <input type="text" class="form-control" id="user_name" name="user_name" aria-describedby="emailHelp">
-        </div>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="mb-3 col-8">
+        <label for="user_name" class="form-label">Your Full Name</label>
+        <input type="text" class="form-control" id="user_name" name="user_name" aria-describedby="emailHelp">
+      </div>
 
-        <div class="mb-3 col-8">
-          <label for="user_email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
+      <div class="mb-3 col-8">
+        <label for="user_email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
 
-        <div class="mb-3 col-8">
-          <label for="user_password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="user_password" name="user_password">
-        </div>
+      <div class="mb-3 col-8">
+        <label for="user_password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="user_password" name="user_password">
+      </div>
 
         <!-- Kayıt edilen kullanıcı admin mi? -->
         <!-- <div class="mb-3 form-check">
