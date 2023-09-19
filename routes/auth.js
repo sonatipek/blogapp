@@ -18,6 +18,14 @@ router.post('/login', authController.postLogin)
 // Logout Routes
 router.get('/logout', authController.getLogout)
 
+// Reset Password Routes
+router.get('/reset-password', authController.getReset);
+router.post('/reset-password', authController.postReset);
+
+// Reset Password with Token
+router.get('/reset-password/:token', authController.getResetPasswordWithToken);
+router.post('/reset-password/:token', authController.postResetPasswordWithToken);
+
 
 
 module.exports=router;
