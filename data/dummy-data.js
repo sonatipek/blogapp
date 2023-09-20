@@ -1,12 +1,13 @@
 const Category = require('../models/category');
 const Blog = require('../models/blog');
+const Role = require('../models/role');
+
 const slugfield = require('../helpers/slugfield');
 
 async function syncSQL() {
-    await Blog.sync({alter: true})
-    await Category.sync({alter: true})
-
-    console.info("Tables is added!")
+    await Blog.sync({alter: true});
+    await Category.sync({alter: true});
+    await Role.sync({alter: true});
 
     const count = await Category.count()
 
@@ -17,10 +18,16 @@ async function syncSQL() {
             {category_name: "Software", url: slugfield("Software")},
             {category_name: "Web Frameworks", url: slugfield("Web Frameworks")},
 
+        ]);
+
+        await Role.bulkCreate([
+            {role_name: "admin"},
+            {role_name: "moderator"},
+            {role_name: "guest"},
         ])
 
 
-        Blog.create({
+        await Blog.create({
             title: "Lorem",
             url: slugfield("Lorem"),
             summary: "Lorem ipsum",
@@ -30,7 +37,7 @@ async function syncSQL() {
             isActive: 1
         })
 
-        Blog.create({
+        await Blog.create({
             title: "Lorem 2",
             url: slugfield("Lorem 2"),
             summary: "Lorem ipsum 2",
@@ -39,6 +46,7 @@ async function syncSQL() {
             isShownOnPage: 1,
             isActive: 1
         })
+
     }
 }
 

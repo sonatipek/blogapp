@@ -5,6 +5,7 @@ const slugField = require('../helpers/slugfield');
 // Create Models
 const Blog = require('../models/blog');
 const Category = require('../models/category');
+const Role = require('../models/role');
 
 // Category Routes
 exports.getCreateCategory = async (req, res) => {
@@ -140,7 +141,11 @@ exports.getUpdateBlog = async (req, res) => {
 
         
         if (blog) {
-            return res.render('admin/blog-edit', {categories, blog, csrfToken: req.csrfToken()});
+            return res.render('admin/blog-edit', {
+                categories, 
+                blog, 
+                csrfToken: req.csrfToken()
+            });
         }
         res.redirect('/admin/blogs')
     } catch (err) {
@@ -214,8 +219,65 @@ exports.listBlog = async (req, res) => {
     try {
         const blogs = await Blog.findAll({raw: true})
 
-        res.render('admin/blog-list', {blogs, action});
+        res.render('admin/blog-list', {blogs, action, cs});
     } catch (err) {
         console.log(err);
+    }
+}
+
+// Role Controllers
+exports.getUpdateRole = async (req,res) => {
+    const id = req.params.roleid;
+
+    const role = await Role.findOne({
+        where: {
+            id: id
+        },
+        raw: true
+    });
+    
+    try {
+        return res.render('admin/role-edit', {role, csrfToken: req.csrfToken()});
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.postUpdateRole = async (req,res) => {
+    const id = req.params.roleid, 
+    roleIdFromServer = req.body.roleid, 
+    roleName = req.body.rolename;
+
+    try {
+
+        if (id === roleIdFromServer) {
+            await Role.update({ 
+                role_name: roleName
+            }, {
+                where: {
+                    id: roleIdFromServer
+                }
+            });
+
+            return res.redirect('/admin/roles?action=update');
+        }
+    
+    
+        return res.redirect('/admin/roles?action=error');
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.listRoles = async (req, res) => {
+    const action = req.query.action;
+    const roles = await Role.findAll({raw:true});
+
+    try {
+        return res.render('admin/roles-list', {action, roles});
+    } catch (error) {
+        console.log(error);
     }
 }

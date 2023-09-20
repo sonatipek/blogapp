@@ -16,7 +16,7 @@ const authRoutes = require('./routes/auth');
 
 // Node Modules
 const path = require('path');
-const csurt = require('csurf')
+const csurf = require('csurf');
 
 // Custom Modules
 const sequelize = require('./data/db');
@@ -30,7 +30,7 @@ app.set("view engine", 'ejs'); // you can use any template engine
 const Category = require('./models/category');
 const Blog = require('./models/blog');
 const User = require('./models/user');
-const csurf = require('csurf');
+const Role = require('./models/role');
 
 // Middlewares
 app.use(express.urlencoded({extended: true}));
@@ -67,7 +67,7 @@ const PORT = 3000;
 
 
 // * Relations
-// onte to many
+// onte to many - Category & Blog Relations
 Category.hasMany(Blog, {
     foreignKey:{
         allowNull: true,
@@ -81,13 +81,17 @@ Category.hasMany(Blog, {
 })
 Blog.belongsTo(Category)
 
-// one to many
+// one to many - Blog & User Relations
 Blog.belongsTo(User, {
     foreignKey: {
         allowNull: true
     }
 });
 User.hasMany(Blog);
+
+// many to many - Role & User Relations
+Role.belongsToMany(User, {through: "userRoles"});
+User.belongsToMany(Role, {through: "userRoles"});
 
 // IIFE - to data sync
 (async () => {

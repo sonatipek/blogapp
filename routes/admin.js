@@ -27,15 +27,19 @@ router.get('/categories',routeProtection, adminController.listCategory);
 
 // Blogs Routes
 router.get('/blog/create', routeProtection, adminController.getCreateBlog);
-
 router.post('/blog/create', routeProtection, upload.single('blog_image'), adminController.postCreeateBlog);
 
 router.get('/blogs/:slug', routeProtection, adminController.getUpdateBlog);
-
 router.post('/blogs/:slug', routeProtection, upload.single('image'), adminController.postUpdateBlog);
 
 router.get('/blogs/delete/:blogid',routeProtection, adminController.deleteBlog);
 
 router.get('/blogs', routeProtection, adminController.listBlog);
+
+// Roles Routes
+router.get('/roles/:roleid', routeProtection, adminController.getUpdateRole);
+router.post('/roles/:roleid', routeProtection, adminController.postUpdateRole);
+
+router.get('/roles', routeProtection, adminController.listRoles);
 
 module.exports=router;
