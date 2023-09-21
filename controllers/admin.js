@@ -6,6 +6,7 @@ const slugField = require('../helpers/slugfield');
 const Blog = require('../models/blog');
 const Category = require('../models/category');
 const Role = require('../models/role');
+const User = require('../models/user');
 
 // Category Routes
 exports.getCreateCategory = async (req, res) => {
@@ -279,5 +280,112 @@ exports.listRoles = async (req, res) => {
         return res.render('admin/roles-list', {action, roles});
     } catch (error) {
         console.log(error);
+    }
+}
+
+// User Controllers
+exports.getUpdateUser = async (req,res) => {
+    const id = req.params.userid;
+
+    const roles = await Role.findAll({raw:true});
+    const user = await User.findOne({
+        attributes: ["id", "fullname", "email"],
+        include: {
+            model: Role,
+            attributes: ["role_name"]
+        },
+        where: {
+            id: id
+        },
+        raw: true
+    });
+
+    try {
+        return res.render('admin/user-edit', {
+            user,
+            roles: roles,
+            csrfToken: req.csrfToken()
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.postUpdateUser = async (req,res) => {
+    const id = req.params.userid, 
+    userIdFromServer = req.body.userid, 
+    fullName = req.body.fullname,
+    roleId = req.body.userrole;
+
+    try {
+
+        if (id === userIdFromServer) {
+
+            const user = await User.findOne({
+                attributes: ["id", "fullname", "email"],
+                include: {
+                    model: Role,
+                    attributes: ["id", "role_name"]
+                },
+                where: {
+                    id: id
+                }
+            });
+
+            user.fullname = fullName;
+            await user.removeRoles(user.roles);
+            await user.addRoles(roleId)
+            await user.save()
+
+            return res.redirect('/admin/users?action=update');
+        }
+    
+    
+        return res.redirect('/admin/roles?action=error');
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.removeRole = async (req,res) => {
+    const id = req.params.userid;
+
+    try {
+        const user = await User.findOne({
+            attributes: ["id", "fullname", "email"],
+            include: {
+                model: Role,
+                attributes: ["id", "role_name"]
+            },
+            where: {
+                id: id
+            }
+        });
+
+        await user.removeRoles(user.roles);
+
+        res.redirect('/admin/users?action=delete')
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+exports.listUsers = async (req, res) => {
+    const action = req.query.action;
+    const users = await User.findAll({
+        attributes: ["id", "fullname", "email"],
+        include: {
+            model: Role,
+            attributes: ["role_name"]
+        },
+        raw: true
+    });
+
+    try {
+        return res.render('admin/users', {action, users})
+    } catch (error) {
+        console.error(error);
     }
 }

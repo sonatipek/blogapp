@@ -42,4 +42,13 @@ router.post('/roles/:roleid', routeProtection, adminController.postUpdateRole);
 
 router.get('/roles', routeProtection, adminController.listRoles);
 
+// Users Routes
+router.get('/users/:userid', routeProtection, adminController.getUpdateUser);
+
+router.post('/users/:userid', routeProtection, adminController.postUpdateUser);
+
+router.get('/users/remove-role/:userid', routeProtection, adminController.removeRole);
+
+router.get('/users', routeProtection, adminController.listUsers);
+
 module.exports=router;
